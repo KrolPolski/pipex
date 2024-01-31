@@ -6,13 +6,13 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/01/30 11:28:14 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:24:50 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 	* check for four arguments
-	* parse paths - path env variable, : separated
+	* parse paths - path env variable, : separated, third main arg
 	* find a way to bring in environmental variables
 	* check if files exist
 	* check if cmd exists in path
@@ -34,4 +34,7 @@
 	1) make it possible to run '< filename cmd' without pipes
 	2) add ability to pipe once
 	3) add the ability to use unlimited pipes
+
+	consider directories, non-existent commands
+	open with O_DIRECTORY can detect the directory case. 
 */
