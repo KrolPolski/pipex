@@ -6,14 +6,14 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/01/30 16:24:50 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/05 10:43:29 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-	* check for four arguments
-	* parse paths - path env variable, : separated, third main arg
-	* find a way to bring in environmental variables
+	* check for four arguments DONE
+	* parse paths - path env variable, : separated, third main arg DONE
+	* find a way to bring in environmental variables DONE
 	* check if files exist
 	* check if cmd exists in path
 	* check permissions of files with access

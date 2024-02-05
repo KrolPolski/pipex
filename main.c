@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/05 10:19:47 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:34:48 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ char	**parse_paths(char **env)
 	return (paths);
 }
 
+int	validate_arguments(char **argv)
+{
+	int	a;
+	int	b;
+	int	c;
+	int	d;
+
+	a = open(argv[1], O_RDONLY);
+	if (a == -1)
+		perror("Failed to open file");
+	//ft_printf("a is now %d\n", a);
+	return (1);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	**paths;
@@ -39,6 +53,7 @@ int	main(int argc, char **argv, char **env)
 		exit(EXIT_FAILURE);
 	}
 	paths = parse_paths(env);
-	while (paths[i])
-		ft_printf("%s\n", paths[i++]);
+//	while (paths[i])
+//		ft_printf("%s\n", paths[i++]);
+	validate_arguments(argv);
 }
