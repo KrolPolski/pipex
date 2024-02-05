@@ -29,22 +29,27 @@ char	**parse_paths(char **env)
 char *check_command(char *cmd, char **paths)
 {
 	int	i;
-	
+	char	*ptr_parking;
+
 	i = 0;
 	//figure out a way to separate parameters from cmd. 
 	//then check the cmd paths.
-	char *potential_cmd;
-	
+	char *potential_cmd;	
 	while (paths[i])
 	{
-		potential_cmd = ft_strjoin(paths[i], cmd);
+		potential_cmd = ft_strjoin(paths[i], "/");
+		ptr_parking = potential_cmd;
+		potential_cmd = ft_strjoin(potential_cmd, cmd);
+		free(ptr_parking);
+
+	
 		if (potential_cmd)
 		{ 
-			ft_printf("potential_cmd is now: %s\n");
+			ft_printf("potential_cmd is now: %s\n", potential_cmd);
 			if (access(potential_cmd, X_OK) == -1)
 			{
-			//	free(potential_cmd);
-		//		i++;
+				free(potential_cmd);
+				i++;
 			}
 			else
 				return (potential_cmd);
@@ -61,7 +66,7 @@ int	validate_arguments(t_pipex *p)
 		exit(-1);
 	}
 	p->cmd1 = check_command(p->argv[2], p->paths);
-	ft_printf("%s\n", p->cmd1);
+	ft_printf("final correct path is %s\n", p->cmd1);
 	//this seems unnecessary, as the above perror will 
 	//also report Permission denied as appropriate
 	//if (access(argv[1], R_OK) == -1)
