@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:58 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/05 10:48:07 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:50:21 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,18 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
+
+typedef struct s_pipex
+{
+	int		input;
+	int		output;
+	int		rd_pipe;
+	int		wr_pipe;
+	int		argc;
+	char	*cmd1;
+	char	*cmd2;
+	char	**argv;
+	char	**env;
+	char	**paths;
+}	t_pipex;
 #endif

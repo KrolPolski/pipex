@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/05 11:34:48 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:50:04 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,55 @@ char	**parse_paths(char **env)
 	}
 	return (paths);
 }
-
-int	validate_arguments(char **argv)
+char *check_command(char *cmd, char **paths)
 {
-	int	a;
-	int	b;
-	int	c;
-	int	d;
-
-	a = open(argv[1], O_RDONLY);
-	if (a == -1)
+	int	i;
+	
+	i = 0;
+	//figure out a way to separate parameters from cmd. 
+	//then check the cmd paths.
+	char *potential_cmd;
+	
+	while (paths[i])
+	{
+		potential_cmd = ft_strjoin(paths[i], cmd);
+		if (potential_cmd)
+		{ 
+			ft_printf("potential_cmd is now: %s\n");
+			if (access(potential_cmd, X_OK) == -1)
+			{
+			//	free(potential_cmd);
+		//		i++;
+			}
+			else
+				return (potential_cmd);
+		}
+	}
+	return (NULL);
+}
+int	validate_arguments(t_pipex *p)
+{
+	p->input = open(p->argv[1], O_RDONLY);
+	if (p->input == -1)
+	{
 		perror("Failed to open file");
+		exit(-1);
+	}
+	p->cmd1 = check_command(p->argv[2], p->paths);
+	ft_printf("%s\n", p->cmd1);
+	//this seems unnecessary, as the above perror will 
+	//also report Permission denied as appropriate
+	//if (access(argv[1], R_OK) == -1)
+	//	perror("Not authorized to read");
+	
 	//ft_printf("a is now %d\n", a);
 	return (1);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	char	**paths;
 	int		i;
+	t_pipex	p;
 
 	i = 0;
 	if (argc != 5)
@@ -52,8 +82,11 @@ int	main(int argc, char **argv, char **env)
 		ft_putstr_fd("ERROR: exactly four arguments required\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	paths = parse_paths(env);
-//	while (paths[i])
-//		ft_printf("%s\n", paths[i++]);
-	validate_arguments(argv);
+	p.argc = argc;
+	p.argv = argv;
+	p.env = env;
+	p.paths = parse_paths(env);
+	//while (p.paths[i])
+	//	ft_printf("%s\n", p.paths[i++]);
+	validate_arguments(&p);
 }

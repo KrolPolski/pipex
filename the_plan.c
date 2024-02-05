@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/05 10:43:29 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:54:39 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 	* check for four arguments DONE
 	* parse paths - path env variable, : separated, third main arg DONE
 	* find a way to bring in environmental variables DONE
-	* check if files exist
+	* check if input file exist
+	* check if output has the right permissions if it exists
 	* check if cmd exists in path
 	* check permissions of files with access
 	* check permissions of relevant cmd
@@ -26,7 +27,8 @@
 	* direct output of command to read pipe for second command
 	* open and write output of second command to file
 	* close file
-
+	* consider timing of processes, waiting for child processes to complete, etc
+	* consider heredoc?
 	* choose an appropriate test case
 		maybe: < textfile.txt cat | head -1 > output
 		also: < textfile.txt grep | grep -v > output
@@ -37,4 +39,5 @@
 
 	consider directories, non-existent commands
 	open with O_DIRECTORY can detect the directory case. 
+	make sure you can handle "" as a file or cmd.
 */
