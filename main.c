@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/07 16:10:37 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:16:34 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	validate_arguments(t_pipex *p)
 		perror("Failed to open file");
 		exit(-1);
 	}
-	p->cmd1 = check_command(p->argv[2], p->paths);
-	p->cmd2 = check_command(p->argv[3], p->paths);
-	if (!p->cmd1 || !p->cmd2)
+	p->cmd1[0] = check_command(p->cmd1[0], p->paths);
+	p->cmd2[0] = check_command(p->cmd2[0], p->paths);
+	if (!p->cmd1[0] || !p->cmd2[0])
 	{
 		ft_putstr_fd("Command not found in available paths\n", 2);
 		return (0);
@@ -108,11 +108,13 @@ int	main(int argc, char **argv, char **env)
 	p.argc = argc;
 	p.argv = argv;
 	p.env = env;
+	p.cmd1 = ft_split(argv[2], ' ');
+	p.cmd2 = ft_split(argv[3], ' ');
 	p.paths = parse_paths(env);
 	//while (p.paths[i])
 	//	ft_printf("%s\n", p.paths[i++]);
 	validate_arguments(&p);
-	if (!p.cmd1 || !p.cmd2)
+	if (!p.cmd1[0] || !p.cmd2[0])
 	{	
 		free_2d(p.paths);
 		return (-1);
