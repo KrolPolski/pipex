@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/07 16:41:24 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:59:17 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@
 
 	consider directories, non-existent commands
 	open with O_DIRECTORY can detect the directory case. 
-	make sure you can handle "" as a file or cmd.
-	
+	make sure you can handle "" as a file or cmd. DONE
 	consider what to do if cmd1 or cmd2 segfaults.
 */

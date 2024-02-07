@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/07 16:49:18 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:57:55 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **env)
 		ft_putstr_fd("ERROR: exactly four arguments required\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	if (!argv[1][0] || !argv[2][0])
+	if (!argv[1][0] || !argv[2][0] || !argv[3][0] || !argv[4][0])
 	{
 		ft_putstr_fd("ERROR: empty string detected\n", 2);
 		exit(EXIT_FAILURE);
