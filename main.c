@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/07 15:25:28 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:10:37 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	validate_arguments(t_pipex *p)
 		exit(-1);
 	}
 	p->cmd1 = check_command(p->argv[2], p->paths);
-	if (!p->cmd1)
+	p->cmd2 = check_command(p->argv[3], p->paths);
+	if (!p->cmd1 || !p->cmd2)
 	{
 		ft_putstr_fd("Command not found in available paths\n", 2);
 		return (0);
@@ -81,6 +82,18 @@ int	validate_arguments(t_pipex *p)
 	return (1);
 }
 
+void	free_2d(char **arr)
+{
+	int i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
 int	main(int argc, char **argv, char **env)
 {
 	int		i;
@@ -98,7 +111,12 @@ int	main(int argc, char **argv, char **env)
 	p.paths = parse_paths(env);
 	//while (p.paths[i])
 	//	ft_printf("%s\n", p.paths[i++]);
-	p.cmd1 = validate_arguments(&p);
-	if (!p.cmd1)
+	validate_arguments(&p);
+	if (!p.cmd1 || !p.cmd2)
+	{	
+		free_2d(p.paths);
 		return (-1);
+	}
+	// free paths
+	free_2d(p.paths);
 }
