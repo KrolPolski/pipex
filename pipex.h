@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:58 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/07 16:14:20 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:28:14 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ typedef struct s_pipex
 	char	**env;
 	char	**paths;
 }	t_pipex;
+void	free_2d(char **arr);
 #endif

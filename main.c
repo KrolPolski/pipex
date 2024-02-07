@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/07 16:26:06 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:37:46 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,15 @@ int	validate_arguments(t_pipex *p)
 		ft_putstr_fd("Command not found in available paths\n", 2);
 		return (0);
 	}
+	if (access(p->argv[4], F_OK) == 0)
+	{
+		p->output = open(p->argv[4], O_WRONLY);
+		if (p->output == -1)
+		{
+			perror("Output file cannot be opened");
+			exit(-1);
+		}
+	}
 	//ft_printf("final correct path is %s\n", p->cmd1);
 	//this seems unnecessary, as the above perror will 
 	//also report Permission denied as appropriate
@@ -86,18 +95,7 @@ int	validate_arguments(t_pipex *p)
 	return (1);
 }
 
-void	free_2d(char **arr)
-{
-	int i;
 
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
 int	main(int argc, char **argv, char **env)
 {
 	int		i;
@@ -123,7 +121,7 @@ int	main(int argc, char **argv, char **env)
 		free_2d(p.paths);
 		return (-1);
 	}
-
+	//if we get here we must have valid arguments
 	// free paths
 	free_2d(p.paths);
 	free_2d(p.cmd1);
