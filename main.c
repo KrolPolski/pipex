@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/05 17:50:04 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/07 15:25:28 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char *check_command(char *cmd, char **paths)
 	
 		if (potential_cmd)
 		{ 
-			ft_printf("potential_cmd is now: %s\n", potential_cmd);
+		//	ft_printf("potential_cmd is now: %s\n", potential_cmd);
 			if (access(potential_cmd, X_OK) == -1)
 			{
 				free(potential_cmd);
@@ -66,7 +66,12 @@ int	validate_arguments(t_pipex *p)
 		exit(-1);
 	}
 	p->cmd1 = check_command(p->argv[2], p->paths);
-	ft_printf("final correct path is %s\n", p->cmd1);
+	if (!p->cmd1)
+	{
+		ft_putstr_fd("Command not found in available paths\n", 2);
+		return (0);
+	}
+	//ft_printf("final correct path is %s\n", p->cmd1);
 	//this seems unnecessary, as the above perror will 
 	//also report Permission denied as appropriate
 	//if (access(argv[1], R_OK) == -1)
@@ -93,5 +98,7 @@ int	main(int argc, char **argv, char **env)
 	p.paths = parse_paths(env);
 	//while (p.paths[i])
 	//	ft_printf("%s\n", p.paths[i++]);
-	validate_arguments(&p);
+	p.cmd1 = validate_arguments(&p);
+	if (!p.cmd1)
+		return (-1);
 }
