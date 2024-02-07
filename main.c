@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/07 16:37:46 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:49:18 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	validate_arguments(t_pipex *p)
 	return (1);
 }
 
-
 int	main(int argc, char **argv, char **env)
 {
 	int		i;
@@ -105,6 +104,11 @@ int	main(int argc, char **argv, char **env)
 	if (argc != 5)
 	{
 		ft_putstr_fd("ERROR: exactly four arguments required\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	if (!argv[1][0] || !argv[2][0])
+	{
+		ft_putstr_fd("ERROR: empty string detected\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	p.argc = argc;
@@ -121,7 +125,11 @@ int	main(int argc, char **argv, char **env)
 		free_2d(p.paths);
 		return (-1);
 	}
-	//if we get here we must have valid arguments
+	//if we get here we must have two valid commands,
+	//and the input file exists and has the appropriate permissions
+	//and the output file either does not yet exist, or if it does,
+	//it has write permissions.
+	pipex(&p);
 	// free paths
 	free_2d(p.paths);
 	free_2d(p.cmd1);
