@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/07 17:30:40 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/08 11:43:12 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int	main(int argc, char **argv, char **env)
 	p.cmd1 = ft_split(argv[2], ' ');
 	p.cmd2 = ft_split(argv[3], ' ');
 	p.paths = parse_paths(env);
+	p.output = 1;
 	//while (p.paths[i])
 	//	ft_printf("%s\n", p.paths[i++]);
 	validate_arguments(&p);
@@ -140,4 +141,5 @@ int	main(int argc, char **argv, char **env)
 	free_2d(p.paths);
 	free_2d(p.cmd1);
 	free_2d(p.cmd2);
+	exit(EXIT_SUCCESS);
 }
