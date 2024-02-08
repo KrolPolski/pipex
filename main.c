@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/07 16:57:55 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:30:40 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,13 @@ int	main(int argc, char **argv, char **env)
 	//and the input file exists and has the appropriate permissions
 	//and the output file either does not yet exist, or if it does,
 	//it has write permissions.
-	pipex(&p);
+	if (pipex(&p) < 0)
+	{
+		free_2d(p.paths);
+		free_2d(p.cmd1);
+		free_2d(p.cmd2);
+		exit(-1);
+	}
 	// free paths
 	free_2d(p.paths);
 	free_2d(p.cmd1);
