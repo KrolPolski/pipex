@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/08 14:54:06 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/09 11:57:34 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,15 @@ int parent_process(t_pipex *p)
 	close(p->input);
 	
 	waitpid(p->child1_pid, &pid1_status, 0);
-	ft_printf("My firstborn ended with exit code %d\n", pid1_status);
+//	ft_printf("My firstborn ended with exit code %d\n", pid1_status);
 	close(p->pipefd[1]);
 	p->child2_pid = fork();
 	if (p->child2_pid == 0)
 		child_process(p);
 	//dup2(p->pipefd[1], 1);
-	ft_printf("second child born\n");
+//	ft_printf("second child born\n");
 	waitpid(p->child2_pid, &pid2_status, 0);
-	ft_printf("My second child ended with exit code %d\n", pid2_status);
+//	ft_printf("My second child ended with exit code %d\n", pid2_status);
 	close(p->output);
 	return (1);
 }

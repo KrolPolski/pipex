@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/09 11:49:27 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/09 11:57:05 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,10 @@ int	main(int argc, char **argv, char **env)
 		free_2d(p.cmd2);
 		exit(-1);
 	}
+	//ft_printf("We have exited pipex function\n");
 	free_2d(p.paths);
 	free_2d(p.cmd1);
 	free_2d(p.cmd2);
-	ft_printf("Execute victory dance protocol\n");
+	//ft_printf("Execute victory dance protocol\n");
 	exit(EXIT_SUCCESS);
 }
