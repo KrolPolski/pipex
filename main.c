@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/08 11:43:12 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/09 11:49:27 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,21 @@ char	**parse_paths(char **env)
 	}
 	return (paths);
 }
-char *check_command(char *cmd, char **paths)
-{
-	int	i;
-	char	*ptr_parking;
 
+char	*check_command(char *cmd, char **paths)
+{
+	int		i;
+	char	*ptr_parking;
+	char	*potential_cmd;
 	i = 0;
-	//figure out a way to separate parameters from cmd. 
-	//then check the cmd paths.
-	char *potential_cmd;	
 	while (paths[i])
 	{
 		potential_cmd = ft_strjoin(paths[i], "/");
 		ptr_parking = potential_cmd;
 		potential_cmd = ft_strjoin(potential_cmd, cmd);
 		free(ptr_parking);
-
-	
 		if (potential_cmd)
-		{ 
-		//	ft_printf("potential_cmd is now: %s\n", potential_cmd);
+		{
 			if (access(potential_cmd, X_OK) == -1)
 			{
 				free(potential_cmd);
@@ -61,6 +56,7 @@ char *check_command(char *cmd, char **paths)
 	free(cmd);
 	return (NULL);
 }
+
 int	validate_arguments(t_pipex *p)
 {
 	p->input = open(p->argv[1], O_RDONLY);
@@ -118,11 +114,9 @@ int	main(int argc, char **argv, char **env)
 	p.cmd2 = ft_split(argv[3], ' ');
 	p.paths = parse_paths(env);
 	p.output = 1;
-	//while (p.paths[i])
-	//	ft_printf("%s\n", p.paths[i++]);
 	validate_arguments(&p);
 	if (!p.cmd1[0] || !p.cmd2[0])
-	{	
+	{
 		free_2d(p.paths);
 		return (-1);
 	}
@@ -137,9 +131,9 @@ int	main(int argc, char **argv, char **env)
 		free_2d(p.cmd2);
 		exit(-1);
 	}
-	// free paths
 	free_2d(p.paths);
 	free_2d(p.cmd1);
 	free_2d(p.cmd2);
+	ft_printf("Execute victory dance protocol\n");
 	exit(EXIT_SUCCESS);
 }

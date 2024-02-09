@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/08 14:44:13 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/08 14:54:06 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	firstborn_process(t_pipex *p)
 {
-	char	*line;
+	//char	*line;
 
 	close(p->pipefd[0]);
 	dup2(p->input, STDIN_FILENO);
@@ -39,7 +39,7 @@ int	firstborn_process(t_pipex *p)
 }
 int	child_process(t_pipex *p)
 {
-	char *line;
+	//char *line;
 	close(p->pipefd[1]);
 	if (p->output == 1)
 	{
