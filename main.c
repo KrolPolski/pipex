@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/09 11:57:05 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/10 11:39:33 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,18 @@ char	*check_command(char *cmd, char **paths)
 
 int	validate_arguments(t_pipex *p)
 {
+	char *error_str;
+
 	p->input = open(p->argv[1], O_RDONLY);
 	if (p->input == -1)
 	{
-		perror("Failed to open file");
-		exit(-1);
+		error_str = strerror(errno);
+		ft_putstr_fd(error_str, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(p->argv[1], 2);
+		ft_putchar_fd('\n', 2);
+		//perror("Failed to open file");
+		exit(EXIT_FAILURE);
 	}
 	p->cmd1[0] = check_command(p->cmd1[0], p->paths);
 	p->cmd2[0] = check_command(p->cmd2[0], p->paths);
@@ -78,7 +85,7 @@ int	validate_arguments(t_pipex *p)
 		if (p->output == -1)
 		{
 			perror("Output file cannot be opened");
-			exit(-1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	//ft_printf("final correct path is %s\n", p->cmd1);
@@ -129,7 +136,7 @@ int	main(int argc, char **argv, char **env)
 		free_2d(p.paths);
 		free_2d(p.cmd1);
 		free_2d(p.cmd2);
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 	//ft_printf("We have exited pipex function\n");
 	free_2d(p.paths);

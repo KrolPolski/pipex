@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:58 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/08 11:51:24 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/10 11:34:08 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <sys/errno.h>
+# include <string.h>
 
 typedef struct s_pipex
 {
