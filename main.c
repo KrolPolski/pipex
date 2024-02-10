@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/10 11:39:33 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/10 12:30:12 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ char	*check_command(char *cmd, char **paths)
 int	validate_arguments(t_pipex *p)
 {
 	char *error_str;
-
+	//char *cmd1_parking;
+	//char *cmd2_parking;
 	p->input = open(p->argv[1], O_RDONLY);
 	if (p->input == -1)
 	{
@@ -72,12 +73,25 @@ int	validate_arguments(t_pipex *p)
 		//perror("Failed to open file");
 		exit(EXIT_FAILURE);
 	}
+	//this probably leaks
+	p->cmd1_parking = p->cmd1[0];
+	p->cmd2_parking = p->cmd2[0];
 	p->cmd1[0] = check_command(p->cmd1[0], p->paths);
-	p->cmd2[0] = check_command(p->cmd2[0], p->paths);
-	if (!p->cmd1[0] || !p->cmd2[0])
+	if (!p->cmd1[0])
 	{
-		ft_putstr_fd("Command not found in available paths\n", 2);
-		return (0);
+		//perror("");
+		ft_putstr_fd("Command not found: ", 2);
+		ft_putstr_fd(p->cmd1_parking, 2);
+		ft_putchar_fd('\n', 2);
+		return (-1);
+	}
+	p->cmd2[0] = check_command(p->cmd2[0], p->paths);
+	if(!p->cmd2[0])
+	{
+		ft_putstr_fd("Command not found: ", 2);
+		ft_putstr_fd(p->cmd2_parking, 2);
+		ft_putchar_fd('\n', 2);
+		return (-1);
 	}
 	if (access(p->argv[4], F_OK) == 0)
 	{
@@ -121,12 +135,24 @@ int	main(int argc, char **argv, char **env)
 	p.cmd2 = ft_split(argv[3], ' ');
 	p.paths = parse_paths(env);
 	p.output = 1;
-	validate_arguments(&p);
+	if(validate_arguments(&p) == -1)
+	{
+		//free(p.cmd1_parking);
+	//	free(p.cmd2_parking);
+		free_2d(p.paths);
+		free_2d(p.cmd1);
+		free_2d(p.cmd2);
+		exit(EXIT_FAILURE);
+	}
 	if (!p.cmd1[0] || !p.cmd2[0])
 	{
+	//	free(p.cmd1_parking);
+		//free(p.cmd2_parking);
 		free_2d(p.paths);
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
+	//free(p.cmd1_parking);
+	//free(p.cmd2_parking);
 	//if we get here we must have two valid commands,
 	//and the input file exists and has the appropriate permissions
 	//and the output file either does not yet exist, or if it does,

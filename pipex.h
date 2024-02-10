@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:58 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/10 11:34:08 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/10 12:23:12 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_pipex
 	int		argc;
 	char	**cmd1;
 	char	**cmd2;
+	char	*cmd1_parking;
+	char	*cmd2_parking;
 	char	**argv;
 	char	**env;
 	char	**paths;

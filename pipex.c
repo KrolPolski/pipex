@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/09 12:28:01 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/10 12:00:18 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	firstborn_process(t_pipex *p)
 	close(p->input);
 	if (execve(p->cmd1[0], p->cmd1, p->env) == -1)
 	{
-		perror("execve failed");
+		perror("");
 		return (-1);
 	}
 	return (1);
@@ -36,8 +36,8 @@ int	child_process(t_pipex *p)
 		p->output = open(p->argv[p->argc - 1], O_CREAT | O_WRONLY, 0666);
 		if (p->output == -1)
 		{
-			perror("Output file cannot be opened");
-			exit(-1);
+			perror("");
+			exit(EXIT_FAILURE);
 		}
 	}
 	dup2(p->pipefd[0], STDIN_FILENO);
@@ -45,7 +45,7 @@ int	child_process(t_pipex *p)
 	close(p->pipefd[0]);
 	if (execve(p->cmd2[0], p->cmd2, p->env) == -1)
 	{
-		perror("execve failed on 2nd command");
+		perror("");
 		return (-1);
 	}
 	return (1);
