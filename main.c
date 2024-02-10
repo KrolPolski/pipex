@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/10 12:30:12 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/10 13:04:02 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*check_command(char *cmd, char **paths)
 	int		i;
 	char	*ptr_parking;
 	char	*potential_cmd;
+
 	i = 0;
 	while (paths[i])
 	{
@@ -60,8 +61,7 @@ char	*check_command(char *cmd, char **paths)
 int	validate_arguments(t_pipex *p)
 {
 	char *error_str;
-	//char *cmd1_parking;
-	//char *cmd2_parking;
+
 	p->input = open(p->argv[1], O_RDONLY);
 	if (p->input == -1)
 	{
@@ -70,7 +70,6 @@ int	validate_arguments(t_pipex *p)
 		ft_putstr_fd(": ", 2);
 		ft_putstr_fd(p->argv[1], 2);
 		ft_putchar_fd('\n', 2);
-		//perror("Failed to open file");
 		exit(EXIT_FAILURE);
 	}
 	//this probably leaks
@@ -79,7 +78,6 @@ int	validate_arguments(t_pipex *p)
 	p->cmd1[0] = check_command(p->cmd1[0], p->paths);
 	if (!p->cmd1[0])
 	{
-		//perror("");
 		ft_putstr_fd("Command not found: ", 2);
 		ft_putstr_fd(p->cmd1_parking, 2);
 		ft_putchar_fd('\n', 2);
@@ -102,13 +100,6 @@ int	validate_arguments(t_pipex *p)
 			exit(EXIT_FAILURE);
 		}
 	}
-	//ft_printf("final correct path is %s\n", p->cmd1);
-	//this seems unnecessary, as the above perror will 
-	//also report Permission denied as appropriate
-	//if (access(argv[1], R_OK) == -1)
-	//	perror("Not authorized to read");
-	
-	//ft_printf("a is now %d\n", a);
 	return (1);
 }
 
@@ -135,7 +126,7 @@ int	main(int argc, char **argv, char **env)
 	p.cmd2 = ft_split(argv[3], ' ');
 	p.paths = parse_paths(env);
 	p.output = 1;
-	if(validate_arguments(&p) == -1)
+	if (validate_arguments(&p) == -1)
 	{
 		//free(p.cmd1_parking);
 	//	free(p.cmd2_parking);
