@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 12:27:02 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:47:42 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,21 @@
 
 int	firstborn_process(t_pipex *p)
 {
+	int	dup_ret;
+
 	close(p->pipefd[0]);
-	dup2(p->input, STDIN_FILENO);
-	dup2(p->pipefd[1], STDOUT_FILENO);
+	dup_ret = dup2(p->input, STDIN_FILENO);
+	if (dup_ret == -1)
+	{
+		perror("");
+		exit(EXIT_FAILURE);
+	}
+	dup_ret = dup2(p->pipefd[1], STDOUT_FILENO);
+	if (dup_ret == -1)
+	{
+		perror("");
+		exit(EXIT_FAILURE);
+	}
 	close(p->pipefd[1]);
 	close(p->input);
 	if (execve(p->cmd_with_path[0], p->cmd1, p->env) == -1)
@@ -29,18 +41,21 @@ int	firstborn_process(t_pipex *p)
 
 int	child_process(t_pipex *p)
 {
+	int	dup_ret;
+
 	close(p->pipefd[1]);
-	if (p->output == 1)
+	dup_ret = dup2(p->pipefd[0], STDIN_FILENO);
+	if (dup_ret == -1)
 	{
-		p->output = open(p->argv[p->argc - 1], O_CREAT | O_WRONLY, 0666);
-		if (p->output == -1)
-		{
-			perror("");
-			exit(EXIT_FAILURE);
-		}
+		perror("");
+		exit(EXIT_FAILURE);
 	}
-	dup2(p->pipefd[0], STDIN_FILENO);
-	dup2(p->output, STDOUT_FILENO);
+	dup_ret = dup2(p->output, STDOUT_FILENO);
+	if (dup_ret == -1)
+	{
+		perror("");
+		exit(EXIT_FAILURE);
+	}
 	close(p->pipefd[0]);
 	if (execve(p->cmd_with_path[1], p->cmd2, p->env) == -1)
 	{

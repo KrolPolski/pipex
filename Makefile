@@ -6,7 +6,7 @@
 #    By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 13:42:54 by rboudwin          #+#    #+#              #
-#    Updated: 2024/02/12 13:31:49 by rboudwin         ###   ########.fr        #
+#    Updated: 2024/02/12 13:56:50 by rboudwin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,8 @@ clean:
 	$(MAKE) -C Libft/ clean
 
 fclean: clean
-	@rm -rf $(NAME) checker
+	@rm -rf $(NAME)
 
-re: clean all
+re: clean fclean all
 
 .PHONY: all, clean, fclean, re 
