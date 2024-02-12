@@ -6,7 +6,7 @@
 #    By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 13:42:54 by rboudwin          #+#    #+#              #
-#    Updated: 2024/02/08 14:53:45 by rboudwin         ###   ########.fr        #
+#    Updated: 2024/02/12 13:31:49 by rboudwin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME	:= pipex
 CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast 
 SRCS	:= main.c \
    		   tools.c \
-		   pipex.c
+		   pipex.c \
+		   validate_args.c
 OBJS	:= ${SRCS:.c=.o} Libft/libft.a
 BONUS_OBJS := ${BONUS_SRCS:.c=.o} Libft/libft.a 
 all: $(NAME)

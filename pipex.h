@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:58 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 13:25:12 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:32:15 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,6 @@ typedef struct s_pipex
 }	t_pipex;
 void	free_2d(char **arr);
 int		pipex(t_pipex *p);
+char	**parse_paths(char **env);
+int	validate_arguments(t_pipex *p);
 #endif
