@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 12:49:22 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:57:02 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*check_command(char *cmd, char **paths)
 	return (NULL);
 }
 
-void	check_output_file(t_pipex *p)
+int	check_output_file(t_pipex *p)
 {
 	char	*error_str;
 
@@ -70,14 +70,15 @@ void	check_output_file(t_pipex *p)
 			ft_putstr_fd(": ", 2);
 			ft_putstr_fd(p->argv[4], 2);
 			ft_putchar_fd('\n', 2);
-			//maybe we free some stuff first?
-			exit(EXIT_FAILURE);
+			return (-1);
 		}
 	}
+	return (1);
 }
+
 int	validate_arguments(t_pipex *p)
 {
-	char *error_str;
+	char	*error_str;
 
 	p->input = open(p->argv[1], O_RDONLY);
 	if (p->input == -1)
@@ -105,8 +106,7 @@ int	validate_arguments(t_pipex *p)
 		ft_putchar_fd('\n', 2);
 		return (-1);
 	}
-	check_output_file(p);
-	return (1);
+	return (check_output_file(p));
 }
 
 int	main(int argc, char **argv, char **env)
