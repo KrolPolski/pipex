@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 13:09:20 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:26:05 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,26 +130,28 @@ void	check_arg_count(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 }
-
-int	main(int argc, char **argv, char **env)
+void	init_p(t_pipex *p, int argc, char **argv, char **env)
 {
-	int		i;
-	t_pipex	p;
-
-	i = 0;
 	check_arg_count(argc, argv);
-	p.argc = argc;
-	p.argv = argv;
-	p.env = env;
-	p.cmd1 = ft_split(argv[2], ' ');
-	p.cmd2 = ft_split(argv[3], ' ');
-	if (!p.cmd1 || !p.cmd2)
+	p->argc = argc;
+	p->argv = argv;
+	p->env = env;
+	p->cmd1 = ft_split(argv[2], ' ');
+	p->cmd2 = ft_split(argv[3], ' ');
+	if (!p->cmd1 || !p->cmd2)
 	{
 		//consider what to free here and if we need an error msg
 		exit(EXIT_FAILURE);
 	}
-	p.paths = parse_paths(env);
-	p.output = 1;
+	p->paths = parse_paths(env);
+	//detect failures
+	p->output = 1;
+}
+int	main(int argc, char **argv, char **env)
+{
+	t_pipex	p;
+
+	init_p(&p, argc, argv, env);
 	p.cmd_with_path = malloc(sizeof(char *) * (argc - 2));
 	if (p.cmd_with_path == NULL)
 	{
