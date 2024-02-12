@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/10 13:04:02 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:32:20 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ char	*check_command(char *cmd, char **paths)
 			}
 			else
 			{
-				free(cmd);
+			//	free(cmd);
 				return (potential_cmd);
 			}
 		}
 	}
-	free(cmd);
+//	free(cmd);
 	return (NULL);
 }
 
@@ -73,21 +73,19 @@ int	validate_arguments(t_pipex *p)
 		exit(EXIT_FAILURE);
 	}
 	//this probably leaks
-	p->cmd1_parking = p->cmd1[0];
-	p->cmd2_parking = p->cmd2[0];
-	p->cmd1[0] = check_command(p->cmd1[0], p->paths);
-	if (!p->cmd1[0])
+	p->cmd_with_path[0] = check_command(p->cmd1[0], p->paths);
+	if (!p->cmd_with_path[0])
 	{
 		ft_putstr_fd("Command not found: ", 2);
-		ft_putstr_fd(p->cmd1_parking, 2);
+		ft_putstr_fd(p->cmd1[0], 2);
 		ft_putchar_fd('\n', 2);
 		return (-1);
 	}
-	p->cmd2[0] = check_command(p->cmd2[0], p->paths);
-	if(!p->cmd2[0])
+	p->cmd_with_path[1] = check_command(p->cmd2[0], p->paths);
+	if (!p->cmd_with_path[1])
 	{
 		ft_putstr_fd("Command not found: ", 2);
-		ft_putstr_fd(p->cmd2_parking, 2);
+		ft_putstr_fd(p->cmd2[0], 2);
 		ft_putchar_fd('\n', 2);
 		return (-1);
 	}
@@ -126,6 +124,14 @@ int	main(int argc, char **argv, char **env)
 	p.cmd2 = ft_split(argv[3], ' ');
 	p.paths = parse_paths(env);
 	p.output = 1;
+	p.cmd_with_path = malloc(sizeof(char *) * (argc - 2));
+	if (p.cmd_with_path == NULL)
+	{
+		free_2d(p.paths);
+		free_2d(p.cmd1);
+		free_2d(p.cmd2);
+		exit(EXIT_FAILURE);
+	}
 	if (validate_arguments(&p) == -1)
 	{
 		//free(p.cmd1_parking);
@@ -133,15 +139,10 @@ int	main(int argc, char **argv, char **env)
 		free_2d(p.paths);
 		free_2d(p.cmd1);
 		free_2d(p.cmd2);
+		free_2d(p.cmd_with_path);
 		exit(EXIT_FAILURE);
 	}
-	if (!p.cmd1[0] || !p.cmd2[0])
-	{
-	//	free(p.cmd1_parking);
-		//free(p.cmd2_parking);
-		free_2d(p.paths);
-		exit(EXIT_FAILURE);
-	}
+	
 	//free(p.cmd1_parking);
 	//free(p.cmd2_parking);
 	//if we get here we must have two valid commands,
@@ -153,12 +154,14 @@ int	main(int argc, char **argv, char **env)
 		free_2d(p.paths);
 		free_2d(p.cmd1);
 		free_2d(p.cmd2);
+		free_2d(p.cmd_with_path);
 		exit(EXIT_FAILURE);
 	}
 	//ft_printf("We have exited pipex function\n");
 	free_2d(p.paths);
 	free_2d(p.cmd1);
 	free_2d(p.cmd2);
+	free_2d(p.cmd_with_path);
 	//ft_printf("Execute victory dance protocol\n");
 	exit(EXIT_SUCCESS);
 }

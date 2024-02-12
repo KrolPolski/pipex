@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/10 12:40:39 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:27:02 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	firstborn_process(t_pipex *p)
 	dup2(p->pipefd[1], STDOUT_FILENO);
 	close(p->pipefd[1]);
 	close(p->input);
-	if (execve(p->cmd1[0], p->cmd1, p->env) == -1)
+	if (execve(p->cmd_with_path[0], p->cmd1, p->env) == -1)
 	{
 		perror("");
 		return (-1);
@@ -42,7 +42,7 @@ int	child_process(t_pipex *p)
 	dup2(p->pipefd[0], STDIN_FILENO);
 	dup2(p->output, STDOUT_FILENO);
 	close(p->pipefd[0]);
-	if (execve(p->cmd2[0], p->cmd2, p->env) == -1)
+	if (execve(p->cmd_with_path[1], p->cmd2, p->env) == -1)
 	{
 		perror("");
 		return (-1);
