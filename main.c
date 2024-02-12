@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 12:57:02 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:01:58 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,8 @@ int	check_output_file(t_pipex *p)
 	return (1);
 }
 
-int	validate_arguments(t_pipex *p)
+int	check_both_commands(t_pipex *p)
 {
-	char	*error_str;
-
-	p->input = open(p->argv[1], O_RDONLY);
-	if (p->input == -1)
-	{
-		error_str = strerror(errno);
-		ft_putstr_fd(error_str, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(p->argv[1], 2);
-		ft_putchar_fd('\n', 2);
-		exit(EXIT_FAILURE);
-	}
 	p->cmd_with_path[0] = check_command(p->cmd1[0], p->paths);
 	if (!p->cmd_with_path[0])
 	{
@@ -106,6 +94,25 @@ int	validate_arguments(t_pipex *p)
 		ft_putchar_fd('\n', 2);
 		return (-1);
 	}
+	return (1);
+}
+
+int	validate_arguments(t_pipex *p)
+{
+	char	*error_str;
+
+	p->input = open(p->argv[1], O_RDONLY);
+	if (p->input == -1)
+	{
+		error_str = strerror(errno);
+		ft_putstr_fd(error_str, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(p->argv[1], 2);
+		ft_putchar_fd('\n', 2);
+		exit(EXIT_FAILURE);
+	}
+	if (check_both_commands(p) == -1)
+		return (-1);
 	return (check_output_file(p));
 }
 
