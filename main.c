@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 12:38:02 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:49:22 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,32 @@ char	*check_command(char *cmd, char **paths)
 			}
 			else
 			{
-			//	free(cmd);
 				return (potential_cmd);
 			}
 		}
 	}
-//	free(cmd);
 	return (NULL);
 }
 
+void	check_output_file(t_pipex *p)
+{
+	char	*error_str;
+
+	if (access(p->argv[4], F_OK) == 0)
+	{
+		p->output = open(p->argv[4], O_WRONLY);
+		if (p->output == -1)
+		{
+			error_str = strerror(errno);
+			ft_putstr_fd(error_str, 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(p->argv[4], 2);
+			ft_putchar_fd('\n', 2);
+			//maybe we free some stuff first?
+			exit(EXIT_FAILURE);
+		}
+	}
+}
 int	validate_arguments(t_pipex *p)
 {
 	char *error_str;
@@ -72,7 +89,6 @@ int	validate_arguments(t_pipex *p)
 		ft_putchar_fd('\n', 2);
 		exit(EXIT_FAILURE);
 	}
-	//this probably leaks
 	p->cmd_with_path[0] = check_command(p->cmd1[0], p->paths);
 	if (!p->cmd_with_path[0])
 	{
@@ -89,19 +105,7 @@ int	validate_arguments(t_pipex *p)
 		ft_putchar_fd('\n', 2);
 		return (-1);
 	}
-	if (access(p->argv[4], F_OK) == 0)
-	{
-		p->output = open(p->argv[4], O_WRONLY);
-		if (p->output == -1)
-		{
-			error_str = strerror(errno);
-			ft_putstr_fd(error_str, 2);
-			ft_putstr_fd(": ", 2);
-			ft_putstr_fd(p->argv[4], 2);
-			ft_putchar_fd('\n', 2);
-			exit(EXIT_FAILURE);
-		}
-	}
+	check_output_file(p);
 	return (1);
 }
 
@@ -126,6 +130,7 @@ int	main(int argc, char **argv, char **env)
 	p.env = env;
 	p.cmd1 = ft_split(argv[2], ' ');
 	p.cmd2 = ft_split(argv[3], ' ');
+	//need to detect split failures
 	p.paths = parse_paths(env);
 	p.output = 1;
 	p.cmd_with_path = malloc(sizeof(char *) * (argc - 2));
