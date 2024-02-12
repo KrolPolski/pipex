@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 12:32:20 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:38:02 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,11 @@ int	validate_arguments(t_pipex *p)
 		p->output = open(p->argv[4], O_WRONLY);
 		if (p->output == -1)
 		{
-			perror("Output file cannot be opened");
+			error_str = strerror(errno);
+			ft_putstr_fd(error_str, 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(p->argv[4], 2);
+			ft_putchar_fd('\n', 2);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -134,21 +138,12 @@ int	main(int argc, char **argv, char **env)
 	}
 	if (validate_arguments(&p) == -1)
 	{
-		//free(p.cmd1_parking);
-	//	free(p.cmd2_parking);
 		free_2d(p.paths);
 		free_2d(p.cmd1);
 		free_2d(p.cmd2);
 		free_2d(p.cmd_with_path);
 		exit(EXIT_FAILURE);
 	}
-	
-	//free(p.cmd1_parking);
-	//free(p.cmd2_parking);
-	//if we get here we must have two valid commands,
-	//and the input file exists and has the appropriate permissions
-	//and the output file either does not yet exist, or if it does,
-	//it has write permissions.
 	if (pipex(&p) < 0)
 	{
 		free_2d(p.paths);
@@ -157,11 +152,9 @@ int	main(int argc, char **argv, char **env)
 		free_2d(p.cmd_with_path);
 		exit(EXIT_FAILURE);
 	}
-	//ft_printf("We have exited pipex function\n");
 	free_2d(p.paths);
 	free_2d(p.cmd1);
 	free_2d(p.cmd2);
 	free_2d(p.cmd_with_path);
-	//ft_printf("Execute victory dance protocol\n");
 	exit(EXIT_SUCCESS);
 }
