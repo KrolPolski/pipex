@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 13:26:05 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:28:05 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,12 @@ void	init_p(t_pipex *p, int argc, char **argv, char **env)
 		exit(EXIT_FAILURE);
 	}
 	p->paths = parse_paths(env);
-	//detect failures
+	if (!p->paths)
+	{
+		free_2d(p->cmd1);
+		free_2d(p->cmd2);
+		exit(EXIT_FAILURE);
+	}
 	p->output = 1;
 }
 int	main(int argc, char **argv, char **env)
