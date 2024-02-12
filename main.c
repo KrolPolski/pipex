@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 13:32:47 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:40:50 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	check_arg_count(int argc, char **argv)
 	}
 	if (!argv[1][0] || !argv[2][0] || !argv[3][0] || !argv[4][0])
 	{
-		//consider that this error doesn't match shell behavior
-		ft_putstr_fd("ERROR: empty string detected\n", 2);
+		ft_putstr_fd("no such file or directory:\n", 2);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -37,7 +36,8 @@ void	init_p(t_pipex *p, int argc, char **argv, char **env)
 	p->cmd2 = ft_split(argv[3], ' ');
 	if (!p->cmd1 || !p->cmd2)
 	{
-		//consider what to free here and if we need an error msg
+		if (p->cmd1)
+			free_2d(p->cmd1);
 		exit(EXIT_FAILURE);
 	}
 	p->paths = parse_paths(env);
