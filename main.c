@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 13:01:58 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:03:15 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	validate_arguments(t_pipex *p)
 		ft_putstr_fd(": ", 2);
 		ft_putstr_fd(p->argv[1], 2);
 		ft_putchar_fd('\n', 2);
-		exit(EXIT_FAILURE);
+		return (-1);
 	}
 	if (check_both_commands(p) == -1)
 		return (-1);
