@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 13:30:41 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 13:34:11 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:16:35 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	check_both_commands(t_pipex *p)
 		ft_putchar_fd('\n', 2);
 		return (-1);
 	}
+	if (check_output_file(p) == -1)
+		return (-1);
 	p->cmd_with_path[1] = check_command(p->cmd2[0], p->paths);
 	if (!p->cmd_with_path[1])
 	{
@@ -113,5 +115,5 @@ int	validate_arguments(t_pipex *p)
 	}
 	if (check_both_commands(p) == -1)
 		return (-1);
-	return (check_output_file(p));
+	return (1);
 }
