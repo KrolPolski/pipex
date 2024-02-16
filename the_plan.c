@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 15:24:18 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/16 11:08:23 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@
 	consider what to do if cmd1 or cmd2 segfaults.
 	DONE handle execve failures appropriately
 		//check for dup errors DONE
-	need to handle timeouts appropriately. something is wrong with my wait or something.
+	need to handle timeouts appropriately. DONE
+	something is wrong with my wait or something. DONE
 */

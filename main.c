@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 15:17:05 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/16 11:25:30 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	check_arg_count(int argc, char **argv)
 
 void	open_output(t_pipex *p)
 {
+	char	*error_str;
+
 	p->output = open(p->argv[4], O_DIRECTORY);
 	if (p->output != -1)
 	{
@@ -39,7 +41,11 @@ void	open_output(t_pipex *p)
 	p->output = open(p->argv[4], O_CREAT | O_WRONLY, 0666);
 	if (p->output == -1)
 	{
-		perror("");
+		error_str = strerror(errno);
+		ft_putstr_fd(error_str, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(p->argv[4], 2);
+		ft_putchar_fd('\n', 2);
 		exit(EXIT_FAILURE);
 	}
 }
