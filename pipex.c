@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 14:47:42 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/16 11:04:49 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,13 @@ int	parent_process(t_pipex *p)
 	int		pid2_status;
 
 	close(p->input);
-	waitpid(p->child1_pid, &pid1_status, 0);
-	close(p->pipefd[1]);
 	p->child2_pid = fork();
 	if (p->child2_pid == 0)
 		child_process(p);
+	close(p->pipefd[1]);
+	close(p->pipefd[0]);
 	waitpid(p->child2_pid, &pid2_status, 0);
+	waitpid(p->child1_pid, &pid1_status, 0);
 	close(p->output);
 	return (1);
 }
