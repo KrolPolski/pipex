@@ -6,12 +6,14 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/16 11:08:23 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/16 14:38:52 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-	* check for four arguments DONE
+	* fix dangling pointers in free_2d
+	* ensure second command runs even if first command fails
+ 	* check for four arguments DONE
 	* parse paths - path env variable, : separated, third main arg DONE
 	* find a way to bring in environmental variables DONE
 	* check if input file exist DONE
