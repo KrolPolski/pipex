@@ -6,13 +6,13 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/16 11:04:49 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/17 15:16:34 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	firstborn_process(t_pipex *p)
+void	firstborn_process(t_pipex *p)
 {
 	int	dup_ret;
 
@@ -33,13 +33,11 @@ int	firstborn_process(t_pipex *p)
 	close(p->input);
 	if (execve(p->cmd_with_path[0], p->cmd1, p->env) == -1)
 	{
-		perror("");
-		return (-1);
+		return ;
 	}
-	return (1);
 }
 
-int	child_process(t_pipex *p)
+void	child_process(t_pipex *p)
 {
 	int	dup_ret;
 
@@ -59,13 +57,11 @@ int	child_process(t_pipex *p)
 	close(p->pipefd[0]);
 	if (execve(p->cmd_with_path[1], p->cmd2, p->env) == -1)
 	{
-		perror("");
-		return (-1);
+		return ;
 	}
-	return (1);
 }
 
-int	parent_process(t_pipex *p)
+void	parent_process(t_pipex *p)
 {
 	int		pid1_status;
 	int		pid2_status;
@@ -79,7 +75,6 @@ int	parent_process(t_pipex *p)
 	waitpid(p->child2_pid, &pid2_status, 0);
 	waitpid(p->child1_pid, &pid1_status, 0);
 	close(p->output);
-	return (1);
 }
 
 int	pipex(t_pipex *p)

@@ -6,12 +6,12 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/16 14:38:52 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/17 15:01:36 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-	* fix dangling pointers in free_2d
+	* fix dangling pointers in free_2d DONE
 	* ensure second command runs even if first command fails
  	* check for four arguments DONE
 	* parse paths - path env variable, : separated, third main arg DONE

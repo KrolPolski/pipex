@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 13:30:41 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 15:09:23 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/17 15:17:50 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	check_both_commands(t_pipex *p)
 		ft_putstr_fd("Command not found: ", 2);
 		ft_putstr_fd(p->cmd1[0], 2);
 		ft_putchar_fd('\n', 2);
-		return (-1);
 	}
 	if (check_output_file(p) == -1)
 		return (-1);
@@ -94,7 +93,6 @@ int	check_both_commands(t_pipex *p)
 		ft_putstr_fd("Command not found: ", 2);
 		ft_putstr_fd(p->cmd2[0], 2);
 		ft_putchar_fd('\n', 2);
-		return (-1);
 	}
 	return (1);
 }
