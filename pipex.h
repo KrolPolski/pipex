@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:58 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/12 13:33:58 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/17 15:33:51 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 typedef struct s_pipex
 {
-	//int		i;
 	int		input;
 	int		output;
 	int		rd_pipe;
@@ -38,7 +37,6 @@ typedef struct s_pipex
 	int		child1_pid;
 	int		child2_pid;
 	int		pipefd[2];
-	//int		pipefd2[2];
 }	t_pipex;
 void	free_2d(char **arr);
 int		pipex(t_pipex *p);
