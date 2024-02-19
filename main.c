@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/17 15:02:58 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:41:53 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ void	check_arg_count(int argc, char **argv)
 		ft_putstr_fd("ERROR: exactly four arguments required\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	if (!argv[1][0] || !argv[2][0] || !argv[3][0] || !argv[4][0])
+	if (!argv[1][0] || !argv[4][0])
 	{
 		ft_putstr_fd("no such file or directory:\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	if (!argv[2][0] || !argv[3][0])
+	{
+		ft_putstr_fd("command not found:\n", 2);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -38,7 +43,7 @@ void	open_output(t_pipex *p)
 		ft_putchar_fd('\n', 2);
 		exit(EXIT_FAILURE);
 	}
-	p->output = open(p->argv[4], O_CREAT | O_WRONLY, 0666);
+	p->output = open(p->argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (p->output == -1)
 	{
 		error_str = strerror(errno);
