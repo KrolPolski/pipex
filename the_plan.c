@@ -6,22 +6,22 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/19 19:00:49 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:04:40 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 	* He had unused variables in his struct's typedef - I'm unsure if that's
-		 technically a norme error.
+		 technically a norme error. DONE
 	* Other things we found was that he was doing some error checks too 
 		early: an incorrect permission for the outfile should not prevent
 		the first command from running. 
-	* The output file was not closed properly after using dup2. 
+	* The output file was not closed properly after using dup2. DONE
 	* Execve failing still resulted in an EXIT_SUCCESS. 
 	* The way he used access() did not allow to distinguish between errors 
 		stemming from non-existent files or just missing permissions.
 	* Handle relative and absolute paths.
-	*
+	* Handle fork errors in both places.
 	* fix dangling pointers in free_2d DONE
 	* ensure second command runs even if first command fails
  	* check for four arguments DONE

@@ -6,13 +6,13 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/17 15:16:34 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:03:50 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	firstborn_process(t_pipex *p)
+int	firstborn_process(t_pipex *p)
 {
 	int	dup_ret;
 
@@ -33,11 +33,12 @@ void	firstborn_process(t_pipex *p)
 	close(p->input);
 	if (execve(p->cmd_with_path[0], p->cmd1, p->env) == -1)
 	{
-		return ;
+		return (0);
 	}
+	return (1);
 }
 
-void	child_process(t_pipex *p)
+int	child_process(t_pipex *p)
 {
 	int	dup_ret;
 
@@ -55,26 +56,36 @@ void	child_process(t_pipex *p)
 		exit(EXIT_FAILURE);
 	}
 	close(p->pipefd[0]);
+	close(p->output);
 	if (execve(p->cmd_with_path[1], p->cmd2, p->env) == -1)
 	{
-		return ;
+		return (0);
 	}
+	return (1);
 }
 
-void	parent_process(t_pipex *p)
+int	parent_process(t_pipex *p)
 {
 	int		pid1_status;
 	int		pid2_status;
+	int		child_return;
 
+	child_return = 1;
 	close(p->input);
 	p->child2_pid = fork();
+	if (p->child1_pid < 0)
+	{
+		perror("Fork");
+		return (0);
+	}
 	if (p->child2_pid == 0)
-		child_process(p);
+		child_return = child_process(p);
 	close(p->pipefd[1]);
 	close(p->pipefd[0]);
 	waitpid(p->child2_pid, &pid2_status, 0);
 	waitpid(p->child1_pid, &pid1_status, 0);
 	close(p->output);
+	return (child_return);
 }
 
 int	pipex(t_pipex *p)
@@ -91,8 +102,16 @@ int	pipex(t_pipex *p)
 		return (0);
 	}
 	else if (p->child1_pid == 0)
-		firstborn_process(p);
+	{
+	//should we be returning int value to catch errors after all? Maybe?
+	//But on which process? I guess it only comes back if there was a problem?
+		if (!firstborn_process(p))
+			return (0);
+	}
 	else
-		parent_process(p);
+	{
+		if (!parent_process(p))
+			return (0);
+	}
 	return (1);
 }
