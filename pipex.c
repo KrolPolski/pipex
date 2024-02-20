@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/20 12:03:50 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:25:11 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ int	pipex(t_pipex *p)
 	}
 	else if (p->child1_pid == 0)
 	{
-	//should we be returning int value to catch errors after all? Maybe?
-	//But on which process? I guess it only comes back if there was a problem?
 		if (!firstborn_process(p))
 			return (0);
 	}

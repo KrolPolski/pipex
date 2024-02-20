@@ -6,24 +6,28 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/20 12:04:40 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:48:45 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-	* He had unused variables in his struct's typedef - I'm unsure if that's
-		 technically a norme error. DONE
+/*	PENDING
 	* Other things we found was that he was doing some error checks too 
 		early: an incorrect permission for the outfile should not prevent
 		the first command from running. 
-	* The output file was not closed properly after using dup2. DONE
-	* Execve failing still resulted in an EXIT_SUCCESS. 
 	* The way he used access() did not allow to distinguish between errors 
 		stemming from non-existent files or just missing permissions.
 	* Handle relative and absolute paths.
-	* Handle fork errors in both places.
+	* ensure second command runs even if first 
+		command fails (I think it will now);
+	* if there are two empty strings we should get two error messages.
+*/
+/* RESOLVED
+	* He had unused variables in his struct's typedef - I'm unsure if that's
+		 technically a norme error. DONE
+	* The output file was not closed properly after using dup2. DONE
+	* Execve failing still resulted in an EXIT_SUCCESS. DONE
+	* Handle fork errors in both places. DONE
 	* fix dangling pointers in free_2d DONE
-	* ensure second command runs even if first command fails
  	* check for four arguments DONE
 	* parse paths - path env variable, : separated, third main arg DONE
 	* find a way to bring in environmental variables DONE

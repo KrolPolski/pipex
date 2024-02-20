@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 13:30:41 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/17 15:17:50 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:47:28 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	**parse_paths(char **env)
 	int		i;
 	char	**paths;
 
+	paths = NULL;
 	i = 0;
 	while (env[i] != NULL)
 	{
