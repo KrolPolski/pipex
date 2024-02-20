@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 13:30:41 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/20 12:47:28 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/20 13:05:13 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,6 @@ int	check_both_commands(t_pipex *p)
 
 int	validate_arguments(t_pipex *p)
 {
-	char	*error_str;
-
-	p->input = open(p->argv[1], O_RDONLY);
-	if (p->input == -1)
-	{
-		error_str = strerror(errno);
-		ft_putstr_fd(error_str, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(p->argv[1], 2);
-		ft_putchar_fd('\n', 2);
-		return (-1);
-	}
 	if (check_both_commands(p) == -1)
 		return (-1);
 	return (1);

@@ -6,16 +6,33 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/20 12:25:11 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/20 13:04:46 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+void	check_input(t_pipex *p)
+{
+	char *error_str;
+	
+	p->input = open(p->argv[1], O_RDONLY);
+	if (p->input == -1)
+	{
+		error_str = strerror(errno);
+		ft_putstr_fd(error_str, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(p->argv[1], 2);
+		ft_putchar_fd('\n', 2);
+		//return (-1);
+	}
+}
+
 int	firstborn_process(t_pipex *p)
 {
 	int	dup_ret;
 
+	check_input(p);
 	close(p->pipefd[0]);
 	dup_ret = dup2(p->input, STDIN_FILENO);
 	if (dup_ret == -1)
