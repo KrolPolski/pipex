@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:58 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/20 12:46:02 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/20 13:31:48 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void	free_2d(char **arr);
 int		pipex(t_pipex *p);
 char	**parse_paths(char **env);
 int		validate_arguments(t_pipex *p);
+void	open_output(t_pipex *p);
 #endif

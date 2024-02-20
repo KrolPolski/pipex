@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/19 19:49:48 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/20 13:30:39 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	init_p(t_pipex *p, int argc, char **argv, char **env)
 	p->argc = argc;
 	p->argv = argv;
 	p->env = env;
-	open_output(p);
 	p->cmd1 = ft_split(argv[2], ' ');
 	p->cmd2 = ft_split(argv[3], ' ');
 	if (!p->cmd1 || !p->cmd2)
