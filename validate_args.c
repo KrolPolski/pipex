@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 13:30:41 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/20 13:27:01 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 12:20:23 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ int	check_both_commands(t_pipex *p)
 	return (1);
 }
 
-int	validate_arguments(t_pipex *p)
+/*int	validate_arguments(t_pipex *p)
 {
 	//this wrapper function is probably unnecessary now since
 	//we moved the other logic
 	if (check_both_commands(p) == -1)
 		return (-1);
 	return (1);
-}
+}*/

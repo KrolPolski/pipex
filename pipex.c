@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:40:16 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/20 13:31:03 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 12:22:06 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@ int	child_process(t_pipex *p)
 
 	open_output(p);
 	close(p->pipefd[1]);
-	// might not need this
-	//if (check_output_file(p) == -1)
-	//	return (-1);
 	dup_ret = dup2(p->pipefd[0], STDIN_FILENO);
 	if (dup_ret == -1)
 	{

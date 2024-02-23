@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/20 13:30:39 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 12:20:35 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int argc, char **argv, char **env)
 		free_2d(p.cmd2);
 		exit(EXIT_FAILURE);
 	}
-	if (validate_arguments(&p) == -1 || pipex(&p) <= 0)
+	if (check_both_commands(&p) == -1 || pipex(&p) <= 0)
 	{
 		free_2d(p.paths);
 		free_2d(p.cmd1);
