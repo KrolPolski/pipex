@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:58 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/23 12:21:00 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 13:18:41 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,7 @@ int		pipex(t_pipex *p);
 char	**parse_paths(char **env);
 void	open_output(t_pipex *p);
 int		check_both_commands(t_pipex *p);
+int		check_output_file(t_pipex *p);
+int		absolute_path_handler_1(t_pipex *p);
+int		absolute_path_handler_2(t_pipex *p);
 #endif
