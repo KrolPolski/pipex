@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 13:30:41 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/23 12:20:23 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 12:36:20 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,27 @@ int	check_output_file(t_pipex *p)
 
 int	check_both_commands(t_pipex *p)
 {
+	char *error_str;
 	//add a check looking for a /, add alternate path to check just one place
+	if (ft_strchr(p->cmd1[0], '/'))
+	{
+		if (access(p->cmd1[0], X_OK) == -1)
+		{
+			error_str = strerror(errno);
+			ft_putstr_fd(error_str, 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(p->cmd1[0], 2);
+			ft_putchar_fd('\n', 2);
+		}
+		else
+		{
+			p->cmd_with_path[0] = ft_strdup(p->cmd1[0]);
+			if (!p->cmd_with_path[0])
+				return (-1);
+		}
+	}
+	else
+	{
 	p->cmd_with_path[0] = check_command(p->cmd1[0], p->paths);
 	if (!p->cmd_with_path[0])
 	{
@@ -87,22 +107,32 @@ int	check_both_commands(t_pipex *p)
 		ft_putstr_fd(p->cmd1[0], 2);
 		ft_putchar_fd('\n', 2);
 	}
-
+	}
+	if (ft_strchr(p->cmd2[0], '/'))
+	{
+		if (access(p->cmd2[0], X_OK) == -1)
+		{
+			error_str = strerror(errno);
+			ft_putstr_fd(error_str, 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(p->cmd2[0], 2);
+			ft_putchar_fd('\n', 2);
+		}
+		else
+		{
+			p->cmd_with_path[1] = ft_strdup(p->cmd2[0]);
+			if (!p->cmd_with_path[1])
+				return (-1);
+		}
+	}
+	else {
 	p->cmd_with_path[1] = check_command(p->cmd2[0], p->paths);
 	if (!p->cmd_with_path[1])
 	{
 		ft_putstr_fd("Command not found: ", 2);
 		ft_putstr_fd(p->cmd2[0], 2);
 		ft_putchar_fd('\n', 2);
-	}
+	}}
+	//should we even be returning values here?
 	return (1);
 }
-
-/*int	validate_arguments(t_pipex *p)
-{
-	//this wrapper function is probably unnecessary now since
-	//we moved the other logic
-	if (check_both_commands(p) == -1)
-		return (-1);
-	return (1);
-}*/

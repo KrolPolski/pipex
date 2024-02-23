@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/23 12:19:42 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 12:23:40 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 	* Other things we found was that he was doing some error checks too 
 		early: an incorrect permission for the outfile should not prevent
 		the first command from running. Seems to be resolved now DONE
-	* Free heap in child processes on execve failure. Except mine already does. DONE
+	* Free heap in child processes on execve failure.
+		 Except mine already does. DONE
 	* He had unused variables in his struct's typedef - I'm unsure if that's
 		 technically a norme error. DONE
 	* The output file was not closed properly after using dup2. DONE
