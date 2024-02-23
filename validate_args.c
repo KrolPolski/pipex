@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 13:30:41 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/23 13:01:08 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 13:10:48 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,59 @@ int	check_output_file(t_pipex *p)
 	}
 	return (1);
 }
+int	absolute_path_handler_1(t_pipex *p)
+{
+	char	*error_str;
+
+	if (access(p->cmd1[0], F_OK) == -1)
+	{
+		ft_putstr_fd("Command not found: ", 2);
+		ft_putstr_fd(p->cmd1[0], 2);
+		ft_putchar_fd('\n', 2);
+	}
+	else if (access(p->cmd1[0], X_OK) == -1)
+	{
+		error_str = strerror(errno);
+		ft_putstr_fd(error_str, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(p->cmd1[0], 2);
+		ft_putchar_fd('\n', 2);
+	}
+	else
+	{
+		p->cmd_with_path[0] = ft_strdup(p->cmd1[0]);
+		if (!p->cmd_with_path[0])
+			return (-1);
+	}
+		return (1);
+}
+
+int	absolute_path_handler_2(t_pipex *p)
+{
+	char	*error_str;
+
+	if (access(p->cmd2[0], F_OK) == -1)
+	{
+		ft_putstr_fd("Command not found: ", 2);
+		ft_putstr_fd(p->cmd2[0], 2);
+		ft_putchar_fd('\n', 2);
+	}
+	else if (access(p->cmd2[0], X_OK) == -1)
+	{
+		error_str = strerror(errno);
+		ft_putstr_fd(error_str, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(p->cmd2[0], 2);
+		ft_putchar_fd('\n', 2);
+	}
+	else
+	{
+		p->cmd_with_path[1] = ft_strdup(p->cmd2[0]);
+		if (!p->cmd_with_path[1])
+			return (-1);
+	}
+	return (1);
+}
 
 int	check_both_commands(t_pipex *p)
 {
@@ -83,26 +136,8 @@ int	check_both_commands(t_pipex *p)
 
 	if (ft_strchr(p->cmd1[0], '/'))
 	{
-		if (access(p->cmd1[0], F_OK) == -1)
-		{
-			ft_putstr_fd("Command not found: ", 2);
-			ft_putstr_fd(p->cmd1[0], 2);
-			ft_putchar_fd('\n', 2);
-		}
-		else if (access(p->cmd1[0], X_OK) == -1)
-		{
-			error_str = strerror(errno);
-			ft_putstr_fd(error_str, 2);
-			ft_putstr_fd(": ", 2);
-			ft_putstr_fd(p->cmd1[0], 2);
-			ft_putchar_fd('\n', 2);
-		}
-		else
-		{
-			p->cmd_with_path[0] = ft_strdup(p->cmd1[0]);
-			if (!p->cmd_with_path[0])
-				return (-1);
-		}
+		if (absolute_path_handler_1(p) == -1)
+			return (-1);
 	}
 	else
 	{
@@ -124,26 +159,8 @@ int	check_both_commands(t_pipex *p)
 	}
 	if (ft_strchr(p->cmd2[0], '/'))
 	{
-		if (access(p->cmd2[0], F_OK) == -1)
-		{
-			ft_putstr_fd("Command not found: ", 2);
-			ft_putstr_fd(p->cmd2[0], 2);
-			ft_putchar_fd('\n', 2);
-		}
-		else if (access(p->cmd2[0], X_OK) == -1)
-		{
-			error_str = strerror(errno);
-			ft_putstr_fd(error_str, 2);
-			ft_putstr_fd(": ", 2);
-			ft_putstr_fd(p->cmd2[0], 2);
-			ft_putchar_fd('\n', 2);
-		}
-		else
-		{
-			p->cmd_with_path[1] = ft_strdup(p->cmd2[0]);
-			if (!p->cmd_with_path[1])
-				return (-1);
-		}
+		if (absolute_path_handler_2(p) == -1)
+			return (-1);
 	}
 	else
 	{
