@@ -16,3 +16,7 @@ Here is an example with arguments:
 ```
 ./pipex file "grep main" "cat -e" output
 ```
+This should behave the same as:
+```
+$> < file grep main | cat -e > output
+```
