@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/23 12:23:40 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 12:39:34 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 	
 	* The way he used access() did not allow to distinguish between errors 
 		stemming from non-existent files or just missing permissions.
-	* Handle relative and absolute paths.
-	* ensure second command runs even if first 
-		command fails (I think it will now);
 	* if there are two empty strings we should get two error messages.
 */
 /* RESOLVED
+	* Handle relative and absolute paths. DONE
+	* ensure second command runs even if first 
+		command fails (I think it will now); DONE
 	* Other things we found was that he was doing some error checks too 
 		early: an incorrect permission for the outfile should not prevent
 		the first command from running. Seems to be resolved now DONE
