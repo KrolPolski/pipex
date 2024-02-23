@@ -6,17 +6,18 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:41:05 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/23 12:39:34 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 13:00:03 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*	PENDING
-	
-	* The way he used access() did not allow to distinguish between errors 
-		stemming from non-existent files or just missing permissions.
-	* if there are two empty strings we should get two error messages.
+	Norm fixes	
 */
+
 /* RESOLVED
+	* if there are two empty strings we should get two error messages. DONE
+	* The way he used access() did not allow to distinguish between errors 
+		stemming from non-existent files or just missing permissions. DONE
 	* Handle relative and absolute paths. DONE
 	* ensure second command runs even if first 
 		command fails (I think it will now); DONE

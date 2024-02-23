@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 13:30:41 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/23 12:53:21 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 13:01:08 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ int	check_output_file(t_pipex *p)
 
 int	check_both_commands(t_pipex *p)
 {
-	char *error_str;
-	//add a check looking for a /, add alternate path to check just one place
+	char	*error_str;
+
 	if (ft_strchr(p->cmd1[0], '/'))
 	{
 		if (access(p->cmd1[0], F_OK) == -1)
@@ -88,7 +88,7 @@ int	check_both_commands(t_pipex *p)
 			ft_putstr_fd("Command not found: ", 2);
 			ft_putstr_fd(p->cmd1[0], 2);
 			ft_putchar_fd('\n', 2);
-		} 
+		}
 		else if (access(p->cmd1[0], X_OK) == -1)
 		{
 			error_str = strerror(errno);
@@ -145,8 +145,7 @@ int	check_both_commands(t_pipex *p)
 				return (-1);
 		}
 	}
-
-	else 
+	else
 	{
 		p->cmd_with_path[1] = check_command(p->cmd2[0], p->paths);
 		if (!p->cmd_with_path[1])
@@ -164,6 +163,5 @@ int	check_both_commands(t_pipex *p)
 			ft_putchar_fd('\n', 2);
 		}
 	}
-	//should we even be returning values here?
 	return (1);
 }

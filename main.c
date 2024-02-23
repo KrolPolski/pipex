@@ -6,11 +6,37 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:17:53 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/02/23 12:20:35 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/02/23 13:01:58 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	empty_check(char **argv)
+{
+	if (!argv[1][0] && !argv[4][0])
+	{
+		ft_putstr_fd("no such file or directory:\n", 2);
+		ft_putstr_fd("no such file or directory:\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	if (!argv[1][0] || !argv[4][0])
+	{
+		ft_putstr_fd("no such file or directory:\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	if (!argv[2][0] && !argv[3][0])
+	{
+		ft_putstr_fd("command not found:\n", 2);
+		ft_putstr_fd("command not found:\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	if (!argv[2][0] || !argv[3][0])
+	{
+		ft_putstr_fd("command not found:\n", 2);
+		exit(EXIT_FAILURE);
+	}
+}
 
 void	check_arg_count(int argc, char **argv)
 {
@@ -19,16 +45,7 @@ void	check_arg_count(int argc, char **argv)
 		ft_putstr_fd("ERROR: exactly four arguments required\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	if (!argv[1][0] || !argv[4][0])
-	{
-		ft_putstr_fd("no such file or directory:\n", 2);
-		exit(EXIT_FAILURE);
-	}
-	if (!argv[2][0] || !argv[3][0])
-	{
-		ft_putstr_fd("command not found:\n", 2);
-		exit(EXIT_FAILURE);
-	}
+	empty_check(argv);
 }
 
 void	open_output(t_pipex *p)
